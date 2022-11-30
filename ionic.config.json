@@ -1,0 +1,7 @@
+{
+  "name": "animales-firestore",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
