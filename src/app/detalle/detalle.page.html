@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-item>
+    <ion-label>Nombre</ion-label>
+    <ion-input [(ngModel)]="document.data.nombre"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Raza</ion-label>
+    <ion-input [(ngModel)]="document.data.raza"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fecha de Nacimiento</ion-label>
+    <ion-input [(ngModel)]="document.data.fecha_Nac"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Genero</ion-label>
+    <ion-input [(ngModel)]="document.data.genero"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Peso</ion-label>
+    <ion-input [(ngModel)]="document.data.peso"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="uploadImagePicker()"> Subir foto</ion-button>
+  </ion-item>
+
+  <ion-button *ngIf="this.id == 'A'" (click)="clicBotonInsertar()"> Añadir animal</ion-button>
+
+  <ion-button *ngIf="this.id != 'A'"(click)="alertBorrado()"> Borrar animal </ion-button>
+  <ion-button *ngIf="this.id != 'A'"(click)="clicBotonModificar()"> Modificar animal</ion-button>
+  <ion-button (click)="clicBotonVolver()"> Volver</ion-button>
+
+
+</ion-content>

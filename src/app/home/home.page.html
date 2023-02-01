@@ -1,34 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Animales
+    <ion-title id="titulo">
+      LISTA DE ANIMALES
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item>
-    <ion-label>Nombre</ion-label>
-    <ion-input [(ngModel)]="animalEditando.nombre"> </ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Raza</ion-label>
-    <ion-input [(ngModel)]="animalEditando.raza"> </ion-input>
-  </ion-item>
 
-  <ion-button (click)="clicBotonInsertar()"> Añadir animal</ion-button>
-
-  <h1>LISTA DE ANIMALES</h1>
-  <ion-list>
-    <ion-item *ngFor="let documentAnimal of arrayAnimales">
       <ion-grid>
+        <br>
         <ion-row>
-          <h2>{{ documentAnimal.data.nombre }}</h2>
-        </ion-row>
-        <ion-row>
-          <h2>{{ documentAnimal.data.raza }}</h2>
+          <ion-col id="contenedorAnimal" *ngFor="let documentAnimal of arrayAnimales" (click)="selecAnimal(documentAnimal)" size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="12">
+            <div style="text-align: center;"><img  id="imagen" alt="Animal" style="border-radius: 5%" src="{{ documentAnimal.data.imagen }}" /> </div>
+          <h3 style="font-weight:bold">Nombre del animal:</h3>
+          <h3>{{ documentAnimal.data.nombre }}</h3>
+          <h3 style="font-weight:bold">Raza del animal:</h3>
+          <h3>{{ documentAnimal.data.raza }}</h3>
+          </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-item>
-  </ion-list>
+   
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="clicBotonAnadir()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

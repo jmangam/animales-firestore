@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Animal } from '../animal';
 import { FirestoreService } from '../firestore.service';
+import { Router } from '@angular/router'
+
+
 
 @Component({
   selector: 'app-home',
@@ -10,32 +13,18 @@ import { FirestoreService } from '../firestore.service';
 export class HomePage {
 
   animalEditando: Animal;
+  paramer: "A";
   arrayAnimales: any = [{
     id: "",
     data: {} as Animal
   }];
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService, private router:Router) {
     //Crear un animal vacio al empezar
     this.animalEditando = {} as Animal;
 
     this.obtenerListaAnimales();
   }
-
-
-
-  clicBotonInsertar() {
-    this.firestoreService.insertar("animales", this.animalEditando)
-    .then(() => {
-      console.log("Animal creado correctamente");
-      //Limpiar el contenido del animal que estaba editando
-      this.animalEditando ={} as Animal;
-
-    }, (error) =>{
-      console.error(error);
-    });
-  }
-
 
   obtenerListaAnimales() { console.log("1");
     this.firestoreService.consultar("animales").subscribe((resultadoConsultaAnimales) => {
@@ -50,4 +39,23 @@ export class HomePage {
     )
   }
 
+  idAnimalSelec: string;
+
+  selecAnimal(animalSelec) {
+    console.log("Animal seleccionado: ");
+    console.log(animalSelec);
+    this.idAnimalSelec = animalSelec.id;
+    this.animalEditando.nombre = animalSelec.data.nombre;
+    this.animalEditando.raza = animalSelec.data.raza;
+    this.router.navigate(['/detalle', this.idAnimalSelec]);
+  }
+
+  clicBotonAnadir(){
+    this.router.navigate(['/detalle', "A" ]);
+  }
+
+ 
+
 }
+
+
