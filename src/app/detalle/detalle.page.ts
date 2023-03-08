@@ -5,6 +5,9 @@ import { FirestoreService } from '../firestore.service';
 import { Router } from '@angular/router'
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+
 
 
 @Component({
@@ -27,7 +30,9 @@ export class DetallePage implements OnInit {
     private alertController: AlertController, 
     private loadingController: LoadingController, 
     private toastController: ToastController, 
-    private imagePicker: ImagePicker ) { 
+    private imagePicker: ImagePicker,
+    private callNumber: CallNumber,
+    private socialSharing: SocialSharing) { 
  }
 
   ngOnInit() {
@@ -61,11 +66,13 @@ export class DetallePage implements OnInit {
   }
 
   clicBotonBorrar() {
+    this.deleteFile(this.document.data.imagen);
     this.firestoreService.borrar("animales", this.document.id).then(() => {
       // Limpiar datos de pantalla
       this.document.data = {} as Animal;
       this.router.navigate(['/home']);
     })
+    
   }
 
   clicBotonModificar() {
@@ -92,6 +99,7 @@ export class DetallePage implements OnInit {
 
 
   async alertBorrado() {
+    console.log(this.document.data.imagen);
     const alert = await this.alertController.create({
       header: 'Advertencia',
       subHeader:'¿Estas seguro de que quieres borrar este animal?',
@@ -100,7 +108,6 @@ export class DetallePage implements OnInit {
           text: 'Cancelar',
           role: 'Cancelar',
           handler: () => {
-            this.router.navigate(['/detalle', this.idAnimalSelec]);
           },
         },
         {
@@ -181,5 +188,20 @@ export class DetallePage implements OnInit {
       console.log(err);
     });
   }
+
+  regularSharing() {
+    this.socialSharing.share(`Nombre: ${this.document.data.nombre} \nRaza: ${this.document.data.raza}\n`, null, null, null).then(() => {
+      console.log("Datos compartidos");
+    }).catch((error) => {
+      console.log("Se ha producido un error: " + error);
+    });
+   }
+
+   llamada(){
+    this.callNumber.callNumber("18001010101", true)
+    .then(res => console.log('LLamada realizada!', res))
+    .catch(err => console.log('Error al iniciar llamada', err));
+   }
+
 
 }

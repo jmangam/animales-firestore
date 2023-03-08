@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Animal } from '../animal';
 import { FirestoreService } from '../firestore.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+
 
 
 
@@ -11,7 +12,6 @@ import { Router } from '@angular/router'
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   animalEditando: Animal;
   paramer: "A";
   arrayAnimales: any = [{

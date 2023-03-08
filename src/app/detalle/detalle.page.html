@@ -27,14 +27,30 @@
     <ion-input [(ngModel)]="document.data.peso"> </ion-input>
   </ion-item>
   <ion-item>
-    <ion-button (click)="uploadImagePicker()"> Subir foto</ion-button>
+    <div><img class="imagenVistaPrevia" src="{{document.data.imagen}}"></div><br>
   </ion-item>
+  <ion-item>
+    <ion-button (click)="uploadImagePicker()"> Subir foto</ion-button>
+    <ion-button (click)="deleteFile(document.data.imagen)"> Borrar foto</ion-button>
+  </ion-item>
+
 
   <ion-button *ngIf="this.id == 'A'" (click)="clicBotonInsertar()"> Añadir animal</ion-button>
 
-  <ion-button *ngIf="this.id != 'A'"(click)="alertBorrado()"> Borrar animal </ion-button>
-  <ion-button *ngIf="this.id != 'A'"(click)="clicBotonModificar()"> Modificar animal</ion-button>
-  <ion-button (click)="clicBotonVolver()"> Volver</ion-button>
+  <ion-button *ngIf="this.id != 'A'"(click)="alertBorrado()"><ion-icon name="trash-outline"></ion-icon></ion-button>
+  <ion-button *ngIf="this.id != 'A'"(click)="clicBotonModificar()"><ion-icon name="checkmark-outline"></ion-icon></ion-button>
+
+  <ion-button (click)="clicBotonVolver()"><ion-icon name="arrow-undo-outline"></ion-icon></ion-button>
+
+  <ion-button (click)="regularSharing()"><ion-icon name="share-social-outline"></ion-icon></ion-button>
+
+  <br>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="llamada()">
+      <ion-icon name="call"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 
 </ion-content>
